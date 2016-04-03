@@ -1,0 +1,352 @@
+@import "colors";
+//colors
+
+$background: $bgreen;
+$white: #fff;
+$black: #000;
+$color1: $mainBlue;
+
+
+// mixins
+@mixin box-shadow($top, $left, $blur, $spread, $color) {
+  -webkit-box-shadow: $top $left $blur $spread $color;
+  -moz-box-shadow: $top $left $blur $spread $color;
+  box-shadow: $top $left $blur $spread $color;
+}
+
+@mixin transition($transition) {
+    -moz-transition:    $transition;
+    -o-transition:      $transition;
+    -webkit-transition: $transition;
+    transition:         $transition;
+}
+
+//content
+body{
+  background-color: $background;
+  font-size: 14px;
+  color: lighten($black, 20%);
+  font-family: Roboto, sans-serif;
+}
+
+.container{
+  position: relative;
+  display: block;
+  max-width: 470px;
+  margin: 60px auto auto;
+
+  .title{
+    position: relative;
+    width: 100%;
+    height: 30px;
+    padding: 10px 0 10px 40px;
+    margin: 0 0 30px;
+    line-height: 30px;
+    color: $color1;
+    border-left: 5px solid $color1;
+    font-weight: 400;
+    text-transform: uppercase;
+    text-align: left;
+    height: inherit;
+
+  }
+  .input-container{
+    position: relative;
+    margin: 0 45px 45px;
+
+    input{
+      height: 60px;
+      width: 100%;
+      border: 0;
+      z-index: 1;
+      color: lighten($black, 20%);
+      font-size: 26px;
+      &:valid,
+      &:focus{
+        ~label{
+          color: lighten($black, 65%);
+          transform: translate(0%, -50%);
+          font-size: 24px;
+        }
+      }
+      &:focus{
+        outline: none;
+        ~.underline{
+          &::before{
+            position: absolute;
+            left: 0;
+            width: 100%;
+            background-color: $color1;
+            height: 2px;
+          }
+        }
+      }
+    }
+    label{
+      position: absolute;
+      font-size: 26px;
+      line-height: 63px;
+      transform: translate(0%, 0%);
+      top: 0;
+      left: 0;
+      color: lighten($black, 45%);
+      font-weight: 100;
+      @include transition(transform .3s ease);
+    }
+
+    .underline{
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 100%;
+      height: 1.5px;
+      background-color: lighten($black, 80%);
+
+      &::before{
+        content: " ";
+        width: 0;
+        @include transition(.3s ease);
+
+      }
+    }
+  }
+
+    &.active{
+      .box{
+        &.bottom{
+          margin: 0 15px;
+          height: 10px;
+          background-color: darken($white, 5%);
+        }
+        &.middle{
+          margin: 0 10px;
+          background-color: darken($white, 2%);
+        }
+        &.top{
+          position: absolute;
+          top: 20px;
+          right: 0;
+          width: 100%;
+          min-width: 100%;
+          height: auto;
+          border-radius: 5px;
+          padding: 60px 0 40px;
+          @include box-shadow(0px, 3px, 2px, 0px, rgba(77, 77, 77, 0.4));
+          overflow: hidden;
+          .add{
+            transform: scale(10);
+            position: absolute;
+            @include transition(transform .3s ease);
+
+            &::before{
+              content: " ";
+            }
+          }
+          .title,
+          .input-container,
+          .button-container{
+            visibility: visible;
+          }
+
+          .title{
+            color: $white;
+            position: relative;
+            border-left: 5px solid $white;
+            @include transition(.3s ease);
+            .close{
+              position: absolute;
+              color: white;
+              cursor: pointer;
+              display: inline;
+              line-height: 40px;
+              font-size: 50px;
+              right: 85px;
+              top: 0;
+              @include transition(.3s ease);
+              &::before{
+                content: '\00d7';
+
+              }
+            }
+          }
+          .input-container{
+            input{
+              background-color: transparent;
+              color: darken($white, 20%);
+              &:focus{
+                ~.underline{
+                  &::before{
+                    background-color: $white;
+                  }
+                }
+
+              }
+
+            }
+            label{
+              color: $white;
+            }
+            .underline{
+              background-color: darken($white, 20%);
+            }
+          }
+          .button-container{
+            position: relative;
+            button{
+              background-color: $white;
+              border-color: $color1;
+
+              span{
+                color: $color1;
+
+              }
+            }
+          }
+          .title {
+            transition-delay: .3s;
+          }
+          .input-container {
+            transition-delay: .4s;
+
+            &:nth-child(2) {
+              transition-delay: .5s;
+            }
+
+            &:nth-child(3) {
+              transition-delay: .6s;
+            }
+          }
+
+          .button-container {
+            transition-delay: .7s;
+          }
+
+        }
+      }
+    }
+
+  }
+.box{
+  position: relative;
+  height: auto;
+  background-color: $white;
+  border-radius: 5px;
+  padding: 50px 0 40px 0;
+  box-sizing: border-box;
+  @include transition( transform .3s ease);
+
+  &.bottom{
+    margin: 0 10px;
+    height: 10px;
+    border-radius: 5px 5px 0 0;
+    background-color: darken($white, 3%);
+    padding: 0;
+    opacity: .8;
+  }
+  &.middle{
+    margin: 0px;
+    @include box-shadow(0px, 3px, 2px, 0px, rgba(77, 77, 77, 0.4));
+  }
+
+
+  &.top{
+    position: absolute;
+    top:40px;
+    right: -70px;
+    border-radius: 100%;
+    height: 140px;
+    width: 140px;
+    padding: 0;
+    background-color: transparent;
+    box-shadow: none;
+    @include transition(.3s ease);
+
+    .add{
+      position: relative;
+      top:0px;
+      right: 0px;
+      border-radius: 100%;
+      height: 140px;
+      width: 140px;
+      @include box-shadow(0px, 1px, 5px, 0px, rgba(77, 77, 77, 0.7));
+      background-color: $color1;
+      cursor: pointer;
+
+
+      &::before{
+        display: inline-block;
+        color: $white;
+        text-align: center;
+        line-height: 140px;
+        font-size: 60px;
+        width: 100%;
+        content: "+";
+
+      }
+    }
+
+    .title,
+    .input-container,
+    .button-container{
+      visibility: hidden;
+    }
+
+  }
+
+}
+
+.button-container{
+  margin: 0 60px;
+  text-align: center;
+
+  button{
+    width: 240px;
+    height: 70px;
+    background: transparent;
+    border: 2px solid lighten($black, 80%);
+    cursor: pointer;
+    @include transition(transform .3s ease);
+
+    &:focus{
+      ~label{
+        background-color: $color1;
+        transform: scale(10);
+
+      }
+
+    }
+
+    span{
+      text-transform: uppercase;
+      color: lighten($black, 80%);
+      font-size: 26px;
+      input[type="submit"] {
+        outline: 0;
+        background-color: transparent;
+        border: 0px;
+      }
+    }
+
+    &:hover{
+      border-color: $color1;
+      span{
+        color: $color1;
+
+      }
+    }
+  }
+}
+
+.footer{
+  padding: 30px 0 0;
+  text-align: center;
+  font-size: 24px;
+  @include transition(.3s ease);
+  a{
+    text-decoration: none;
+    color: lighten($black, 80%);
+    &:hover{
+      color: lighten($black, 60%);
+    }
+  }
+}

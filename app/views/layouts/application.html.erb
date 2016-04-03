@@ -7,20 +7,56 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-  <% if user_signed_in? %>
-
-				<div><%= link_to "Home", root_path %></div>
-		    <div id= "logout"><%= link_to "Logout",logout_path, method: :delete%></div>
-
-	 <%end%>
-  <div class="flash">
+  <!-- <div class="flash">
 		  <%flash.each do|type,message| -%>
 		<div class= "alert flash <%= type %>"><%= message %></div>
 		  <%end %>
-	</div>
+	</div> -->
+  <% if user_signed_in? %>
+  <div id="sidebar-wrapper">
+
+          <ul class="sidebar-nav nav nav-pills nav-stacked">
+
+              <h1 class="greeting"> Hi <%= current_user.first_name %>!</h1>
+              <li>
+                  <%= link_to "Home", root_path %>
+              </li>
+              <li>
+                  <%= link_to "My Positions", root_path %>
+              </li>
+              <li>
+                  <%= link_to "My Transactions ", root_path %>
+              </li>
+              <li>
+                  <%= link_to "Settings ", root_path %>
+              </li>
+              <div id= "logout"><%= link_to "Logout",logout_path, method: :delete%></div>
+          </ul>
+
+    </div>
+
+    <div id="page-content-wrapper">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-lg-9 right">
+            <%= yield %>
+          </div>
+          </div>
+          </div>
+          </div>
+	  <%end%>
 
 
-<%= yield %>
+    <%= yield %>
 
+
+
+
+  <script>
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+    </script>
 </body>
 </html>
