@@ -11,7 +11,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160402215913) do
+ActiveRecord::Schema.define(version: 20160402235713) do
+
+  create_table "positions", force: :cascade do |t|
+    t.string   "employee_id"
+    t.string   "job_id"
+    t.string   "position_name"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  create_table "shifts", force: :cascade do |t|
+    t.integer  "day_of_week"
+    t.time     "start_time"
+    t.time     "end_time"
+    t.integer  "shift_number"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "first_name"
