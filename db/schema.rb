@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160403041145) do
+ActiveRecord::Schema.define(version: 20160403093944) do
 
   create_table "positions", force: :cascade do |t|
     t.string   "employee_id"
@@ -19,7 +19,10 @@ ActiveRecord::Schema.define(version: 20160403041145) do
     t.string   "position_name"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+    t.integer  "user_id"
   end
+
+  add_index "positions", ["user_id"], name: "index_positions_on_user_id"
 
   create_table "shifts", force: :cascade do |t|
     t.integer  "day_of_week"
@@ -28,7 +31,10 @@ ActiveRecord::Schema.define(version: 20160403041145) do
     t.integer  "shift_number"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+    t.integer  "position_id"
   end
+
+  add_index "shifts", ["position_id"], name: "index_shifts_on_position_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "first_name"

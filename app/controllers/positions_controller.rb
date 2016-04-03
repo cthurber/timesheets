@@ -5,10 +5,11 @@ class PositionsController < ApplicationController
 
   def index
      @positions = current_user.positions
+
   end
 
   def new
-    @positions = current_user.positions.new
+    @position = current_user.positions.new
   end
 
   def create
@@ -24,10 +25,11 @@ class PositionsController < ApplicationController
   end
 
   def edit
-    @position
+    @position = current_user.positions.find(params[:id])
   end
 
   def update
+    @position = current_user.positions.find(params[:id])
   	if @position.update_attributes(position_params)
     		flash[:success] = "Saved position."
     		redirect_to positions_path

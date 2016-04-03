@@ -1,3 +1,21 @@
 <h2> List of all positions </h2>
 
-<%= @positions %>
+<% @positions.each do |position| %>
+  <%= @position = position.id %>
+  <p><%= position.position_name %></p>
+  <p><%= position.employee_id %></p>
+  <p><%= position.job_id %></p>
+  <% position.shifts.each do |shift| %>
+    <% @shift = shift.id %>
+    <p><%= shift.shift_number %></p>
+    <p><%= shift.day_of_week %></p>
+    <p><%= shift.start_time %></p>
+    <p><%= shift.end_time %></p>
+    <%= link_to "Edit", edit_position_shift_path(@shift, @position) %>
+  <% end %>
+
+  <%= link_to "Add a shift", new_position_shift_path(@position) %>
+<%= link_to "Edit Position", edit_position_path(@position) %>
+<%end%>
+
+<%= link_to "New Position", new_position_path %>

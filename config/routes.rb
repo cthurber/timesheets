@@ -10,8 +10,9 @@ Rails.application.routes.draw do
 
   end
 
-  resources :positions
-
+  resources :positions do
+    resources :shifts
+  end
   root 'positions#index'
 
 

@@ -2,16 +2,16 @@ class Users::RegistrationsController < Devise::RegistrationsController
 before_filter :configure_sign_up_params, only: [:create]
 
   # # POST /resource
-  def create
-    @user = User.new(configure_sign_up_params)
-    if @user.save
-      flash[:success]= "Your account was successfully created"
-      redirect_to root_path
-    else
-      flash[:error]= "There was an error creating your account"
-      render action: :new
-  	end
-  end
+  # def create
+  #   @user = User.new(configure_sign_up_params)
+  #   if @user.save
+  #     flash[:success]= "Your account was successfully created"
+  #     redirect_to root_path
+  #   else
+  #     flash[:error]= "There was an error creating your account"
+  #     render action: :new
+  # 	end
+  # end
 
   # GET /resource/edit
   # def edit
