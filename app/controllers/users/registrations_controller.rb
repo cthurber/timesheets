@@ -1,19 +1,6 @@
 class Users::RegistrationsController < Devise::RegistrationsController
 before_filter :configure_sign_up_params, only: [:create]
-# before_filter :configure_account_update_params, only: [:update]
-  # skip_before_filter :require_no_authentication
-  # before_filter :resource_name
 
-  # GET /resource/sign_up
-  # def new
-  #   :user
-  # end
-  #
-  # def new
-  #   @user = User.new
-  # end
-  #
-  #
   # # POST /resource
   def create
     @user = User.new(configure_sign_up_params)
