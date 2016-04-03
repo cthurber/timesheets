@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160402235713) do
+ActiveRecord::Schema.define(version: 20160403041145) do
 
   create_table "positions", force: :cascade do |t|
     t.string   "employee_id"
@@ -35,7 +35,7 @@ ActiveRecord::Schema.define(version: 20160402235713) do
     t.string   "last_name"
     t.string   "phone_number"
     t.string   "drew_login_email",       default: "", null: false
-    t.string   "drew_password_password", default: "", null: false
+    t.string   "drew_login_password",    default: "", null: false
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
     t.string   "reset_password_token"

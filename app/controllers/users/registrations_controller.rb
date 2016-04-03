@@ -1,16 +1,30 @@
 class Users::RegistrationsController < Devise::RegistrationsController
-# before_filter :configure_sign_up_params, only: [:create]
+before_filter :configure_sign_up_params, only: [:create]
 # before_filter :configure_account_update_params, only: [:update]
+  # skip_before_filter :require_no_authentication
+  # before_filter :resource_name
 
   # GET /resource/sign_up
   # def new
-  #   super
+  #   :user
   # end
-
-  # POST /resource
-  # def create
-  #   super
+  #
+  # def new
+  #   @user = User.new
   # end
+  #
+  #
+  # # POST /resource
+  def create
+    @user = User.new(configure_sign_up_params)
+    if @user.save
+      flash[:success]= "Your account was successfully created"
+      redirect_to root_path
+    else
+      flash[:error]= "There was an error creating your account"
+      render action: :new
+  	end
+  end
 
   # GET /resource/edit
   # def edit
@@ -39,9 +53,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # protected
 
   # If you have extra params to permit, append them to the sanitizer.
-  # def configure_sign_up_params
-  #   devise_parameter_sanitizer.for(:sign_up) << :attribute
-  # end
+  def configure_sign_up_params
+    params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation)
+
+  end
 
   # If you have extra params to permit, append them to the sanitizer.
   # def configure_account_update_params

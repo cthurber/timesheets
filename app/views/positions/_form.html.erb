@@ -1,0 +1,28 @@
+
+<%= form_for(@workout) do |f| %>
+  <% if @position.errors.any? %>
+    <div id= "error-explanation">
+      <h2><%= pluralize(@workout.errors.count, "error") %> prohibited this workouts from being saved:</h2>
+
+      <ul>
+      <% @workout.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class= "field">
+    <%= f.text_field :position_name,placeholder: 'Position Name' %>
+  </div>
+  <div class= "field">
+    <%= f.text_field :employee_id,placeholder: 'Employee ID' %>
+  </div>
+  <div class= "field">
+    <%= f.text_field :job_id,placeholder: 'Job ID' %>
+  </div>
+  <div class= "submit">
+    <%= f.submit %>
+  </div>
+
+<% end %>

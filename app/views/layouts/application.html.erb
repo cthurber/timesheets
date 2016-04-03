@@ -7,8 +7,19 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-  <p class="notice"><%= notice %></p>
-  <p class="alert"><%= alert %></p>
+  <% if user_signed_in? %>
+
+				<div><%= link_to "Home", root_path %></div>
+		    <div id= "logout"><%= link_to "Logout",logout_path, method: :delete%></div>
+
+	 <%end%>
+  <div class="flash">
+		  <%flash.each do|type,message| -%>
+		<div class= "alert flash <%= type %>"><%= message %></div>
+		  <%end %>
+	</div>
+
+
 <%= yield %>
 
 </body>
