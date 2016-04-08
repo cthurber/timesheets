@@ -1,10 +1,10 @@
 require 'capybara/poltergeist'
 
 # class TreeHouseAPI
-$session = Capybara::Session.new(:selenium) # figure out poltergeist errors
+$session = Capybara::Session.new(:selenium)
 $logged_in = false
 $viewing_timesheet = false
-# Capybara.default_max_wait_time = 10
+Capybara.default_max_wait_time = 90
 
 def get_login_info
 
@@ -94,21 +94,20 @@ def fill_hours(shift)
         i += 1
       end
       $session.within(enter_hours[i]) do
-        $session.first('a.fieldsmalltext').click
+        $hours = $session.first('a.fieldsmalltext')[:href]
       end
 
       # Go to the timesheet
+      $session.visit $hours
+
 
       # TODO Fix async from here down
       begin
-        page.all('.content_item').any? { |element| element.text =~ /#{expected_title}/ }
+        $session.first(:css, "input[id$=input#timein_input_id", visible: false)
+        $session.first(:css, "input[id$=input#timeout_input_id", visible: false).set(shift["end_time"])
       rescue Selenium::WebDriver::Error::ObsoleteElementError
-
-        page.all('.content_item').any? { |element| element.text =~ /#{expected_title}/ }
+        # Introduce dat dank ass JavaScript
       end
-      $session.find(:css, "input[id$=input#timein_input_id")
-      $session.find(:css, "input[id$=input#timeout_input_id").set(shift["end_time"])
-
     end
   end
 end
@@ -117,7 +116,7 @@ end
 
 # Tests without class:
 login()
-get_timesheet('111212')
+get_timesheet('111006')
 
 shiftA = {"day" => 3, "start_time" => "9:30", "end_time" => "11:30", "shift_num" => "1"}
 shiftB = {"day" => 5, "start_time" => "8:00", "end_time" => "9:00", "shift_num" => "2"}
